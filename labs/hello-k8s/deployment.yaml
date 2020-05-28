@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: demo
+    labels:
+      app: demo
+spec:
+    replicas: 3
+    minReadySeconds: 10
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1
+        maxSurge: 1
+    selector:
+      matchLabels:
+        app: demo
+    template:
+      metadata:
+        labels:
+          app: demo
+      spec:
+        containers:
+        - name: demo
+          image: janssenlima/myhello
+          ports:
+          - containerPort: 8888
